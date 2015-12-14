@@ -1,6 +1,9 @@
 #ifndef MUTATOR_INCLUDED
 #define MUTATOR_INCLUDED
 
+#include <vector>
+#include <map>
+
 //============================================================================
 // Scalar
 //============================================================================
@@ -31,7 +34,7 @@ public: \
 const std::vector<TYPE> & NAME() const {return m_ ## NAME;} \
 std::vector<TYPE> & NAME() {return m_ ## NAME;} \
 const TYPE NAME(size_t i) const {return m_ ## NAME[i];} \
-void set_ ## NAME(size_t i, const TYPE value) {m_ ##NAME[i] = value;}
+void set_ ## NAME(size_t i, const TYPE value) {m_ ##NAME[i] = value;} \
 private:
 
 #define M_INSTANCE_VECTOR(TYPE, NAME) \
@@ -41,7 +44,7 @@ const std::vector<TYPE> & NAME() const { return m_ ## NAME;} \
 std::vector<TYPE> & NAME() { return m_ ## NAME;} \
 const TYPE & NAME(size_t i) const { return m_ ## NAME[i];} \
 TYPE & NAME(size_t i) { return m_ ## NAME[i];} \
-void set_ ## NAME(const size_t i, const TYPE & value) {m_ ##NAME[i] = value;}
+void set_ ## NAME(const size_t i, const TYPE & value) {m_ ##NAME[i] = value;} \
 private:
 
 //============================================================================
@@ -53,8 +56,8 @@ std::map< KEY_TYPE, VALUE_TYPE > m_ ## NAME; \
 public: \
 const std::map< KEY_TYPE, VALUE_TYPE > & NAME() const { return m_ ## NAME;} \
 std::map< KEY_TYPE, VALUE_TYPE > & NAME() { return m_ ## NAME;} \
-const VALUE_TYPE NAME(const KEY_TYPE & key) const { return m_ ## NAME[key];} \
-VALUE_TYPE NAME(const KEY_TYPE & key) { return m_ ## NAME[key];} \
+const VALUE_TYPE NAME(const KEY_TYPE & key) { return m_ ## NAME[key];} \
+void set_ ## NAME(const KEY_TYPE & key, const VALUE_TYPE value) {m_ ## NAME[key] = value;} \
 private:
 
 #define M_INSTANCE_MAP(KEY_TYPE, VALUE_TYPE, NAME) \
@@ -62,8 +65,8 @@ std::map< KEY_TYPE, VALUE_TYPE > m_ ## NAME; \
 public: \
 const std::map< KEY_TYPE, VALUE_TYPE > & NAME() const { return m_ ## NAME;} \
 std::map< KEY_TYPE, VALUE_TYPE > & NAME() { return m_ ## NAME;} \
-const VALUE_TYPE & NAME(const KEY_TYPE & key) const { return m_ ## NAME[key];} \
 VALUE_TYPE & NAME(const KEY_TYPE & key) { return m_ ## NAME[key];} \
+void set_ ## NAME(const KEY_TYPE & key, const VALUE_TYPE & value) {m_ ## NAME[key] = value;} \
 private:
 
 //============================================================================
@@ -77,7 +80,7 @@ const array1d_t & NAME() const {return m_ ## NAME;} \
 array1d_t & NAME() { return m_ ## NAME;} \
 const double NAME(const size_t i) const {return m_ ## NAME(i);} \
 double NAME(const size_t i) {return m_ ## NAME(i);} \
-void set_ ## NAME(const size_t i, const double value) {m_ ##NAME(i) = value;}
+void set_ ## NAME(const size_t i, const double value) {m_ ##NAME(i) = value;} \
 private:
 
 #define M_ARRAY2D(NAME) \
@@ -86,7 +89,7 @@ const array2d_t & NAME() const {return m_ ## NAME;} \
 array2d_t & NAME() { return m_ ## NAME;} \
 const double NAME(const size_t i0, const size_t i1) const {return m_ ## NAME(i0,i1);} \
 double NAME(const size_t i0, const size_t i1) {return m_ ## NAME(i0,i1);} \
-void set_ ## NAME(const size_t i0, const size_t i1, const double value) {m_ ##NAME(i0,i1) = value;}
+void set_ ## NAME(const size_t i0, const size_t i1, const double value) {m_ ##NAME(i0,i1) = value;} \
 private:
 
 #endif
